@@ -37,15 +37,7 @@ class Goodreads_API {
 	 * @var mixed|string
 	 * @since 1.0.0
 	 */
-	protected $user = '';
-
-	/**
-	 * Limit of items to return.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-	protected $limit = '';
+	protected $user_id = '';
 
 	/**
 	 * Goodreads_API constructor.
@@ -56,7 +48,6 @@ class Goodreads_API {
 	 */
 	public function __construct( $args = [] ) {
 		$this->api_key = $args['api_key'];
-		$this->user    = $args['user'];
-		$this->limit   = $args['limit'];
+		$this->user_id = $args['user_id'];
 	}
 }
