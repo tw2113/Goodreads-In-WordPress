@@ -32,6 +32,24 @@ class Current_Reading_Shelf_API extends Goodreads_API {
 	protected $shelf = 'currently-reading';
 
 	/**
+	 * Limit of items to return.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+	protected $limit = '';
+
+	/**
+	 * Current_Reading_Shelf_API constructor.
+	 *
+	 * @param array $args Array of arguments for this endpoint.
+	 */
+	public function __construct( $args = [] ) {
+		parent::__construct( $args );
+		$this->limit = $args['limit'];
+	}
+
+	/**
 	 * Retrieve latest user badge.
 	 *
 	 * @since 1.0.0
@@ -42,7 +60,7 @@ class Current_Reading_Shelf_API extends Goodreads_API {
 		$url = sprintf( '%s%s%s.xml',
 			$this->base_uri,
 			$this->endpoint,
-			$this->user
+			$this->user_id
 		);
 
 		$results = wp_remote_get(
