@@ -142,7 +142,7 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 			$transient  = apply_filters( 'current_reading_filter', 'goodreads_current_reading_' . $user_id );
 			$trans_args = [
 				'transient_name' => $transient,
-				'user'           => $user_id,
+				'user_id'        => $user_id,
 				'api_key'        => $api_key,
 				'limit'          => $limit,
 			];
@@ -175,7 +175,7 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 					 */
 					$current_reading_markup = apply_filters( 'current_reading_markup', '', $book_data );
 
-					echo ( '' !== $current_reading_markup ) ? $current_reading_markup : $this->books( $book_data, $trans_args['user'] );
+					echo ( '' !== $current_reading_markup ) ? $current_reading_markup : $this->books( $book_data, $trans_args['user_id'] );
 
 				} else {
 					echo '<p>' . esc_html__( 'Nothing to display yet', 'mb_goodreads' ) . '</p>';
@@ -249,7 +249,7 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 			$current_reading = new Current_Reading_Shelf_API(
 				[
 					'api_key' => $trans_args['api_key'],
-					'user'    => $trans_args['user'],
+					'user_id' => $trans_args['user_id'],
 					'limit'   => $trans_args['limit'],
 				]
 			);
