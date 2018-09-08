@@ -259,4 +259,63 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 			delete_transient( apply_filters( 'profile_filter', 'goodreads_user_profile_' . $user_id ) );
 		}
 	}
+
+	/**
+	 * Filter down our data to only what we want.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $userdata Array of user data.
+	 * @return array
+	 */
+	protected function filtered_profile_data( $userdata = [] ) {
+		$fields = $this->wanted_profile_fields();
+		return array_filter( (array) $userdata, function ( $datum ) use ( $fields ) {
+			return in_array( $datum, $fields );
+		}, ARRAY_FILTER_USE_KEY );
+	}
+
+	/**
+	 * The fields we want from Goodreads data.
+	 *
+	 * @since 1.0.0
+	 * @return array
+	 */
+	protected function wanted_profile_fields() {
+		return [
+			'age',
+			'name',
+			'link',
+			'image_url',
+			'location',
+			'joined',
+			'last_active',
+			'friends_count',
+			'groups_count',
+			'reviews_count',
+		];
+	}
+
+	/**
+	 * Return a linked profile photo.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $url   Profile URL.
+	 * @param string $image Profile image URL.
+	 * @param string $name  User's first name.
+	 * @return string
+	 */
+	protected function profile_photo( $url = '', $image = '', $name = '' ) {
+		return sprintf(
+			'<p><a href="%s"><img src="%s" alt="%s" /></a></p>',
+			$url,
+			$image,
+			sprintf(
+				/* Translators: placeholder will have Goodread's profile first name */
+				esc_attr__( 'Profile photo of %s', 'mb_goodreads' ),
+				$name
+			)
+		);
+	}
 }
