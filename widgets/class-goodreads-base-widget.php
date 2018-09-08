@@ -34,6 +34,16 @@ class Goodreads_Base_Widget extends \WP_Widget {
 		);
 	}
 
+	/**
+	 * Display errors if we're missing anything.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $user_id User ID to display content for.
+	 * @param string $api_key API key needed for requests.
+	 *
+	 * @return bool
+	 */
 	public function maybe_display_errors( $user_id = '', $api_key = '' ) {
 		$error = false;
 		if ( empty( $user_id ) ) {
