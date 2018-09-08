@@ -125,11 +125,11 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 					 * @param array  $value Array of classes to use.
 					 */
 					$classes   = implode( ', ', apply_filters( 'goodreads_profile_classes', [ 'profile' ] ) );
-					$book_xml  = simplexml_load_string( $user );
-					/*$book_data = [
-						'books'   => $book_xml->reviews,
+					$user_xml  = simplexml_load_string( $user, null, LIBXML_NOCDATA );
+					$user_data = [
+						'user'    => $user_xml->user,
 						'classes' => $classes,
-					];*/
+					];
 
 					/**
 					 * Filters the markup to use for the output.
