@@ -33,4 +33,21 @@ class Goodreads_Base_Widget extends \WP_Widget {
 			esc_attr( $args['value'] )
 		);
 	}
+
+	public function maybe_display_errors( $user_id = '', $api_key = '' ) {
+		$error = false;
+		if ( empty( $user_id ) ) {
+			$error = true;
+			if ( current_user_can( 'manage_options' ) ) {
+				echo '<p>' . esc_html__( 'Please provide a user ID', 'mb_goodreads' ) . '</p>';
+			}
+		}
+		if ( empty( $api_key ) ) {
+			$error = true;
+			if ( current_user_can( 'manage_options' ) ) {
+				echo '<p>' . esc_html__( 'Please provide an API key provided by Goodreads', 'mb_goodreads' ) . '</p>';
+			}
+		}
+		return $error;
+	}
 }
