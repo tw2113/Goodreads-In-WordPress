@@ -117,7 +117,6 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 		$user_id = ( ! empty( $this->goodreads_settings['user_id'] ) ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
 		$api_key = ( ! empty( $this->goodreads_settings['client_id'] ) ) ? trim( strip_tags( $this->goodreads_settings['client_id'] ) ) : '';
 		$limit   = ( ! empty( $instance['limit'] ) ) ? $instance['limit'] : '2';
-		$error   = false;
 
 		echo $args['before_widget'];
 
@@ -125,18 +124,7 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
 		}
 
-		if ( empty( $user_id ) ) {
-			$error = true;
-			if ( current_user_can( 'manage_options' ) ) {
-				echo '<p>' . esc_html__( 'Please provide a user ID', 'mb_goodreads' ) . '</p>';
-			}
-		}
-		if ( empty( $api_key ) ) {
-			$error = true;
-			if ( current_user_can( 'manage_options' ) ) {
-				echo '<p>' . esc_html__( 'Please provide an API key provided by Goodreads', 'mb_goodreads' ) . '</p>';
-			}
-		}
+		$error = $this->maybe_display_errors( $user_id, $api_key );
 
 		if ( false === $error ) {
 			$transient  = apply_filters( 'current_reading_filter', 'goodreads_current_reading_' . $user_id );
