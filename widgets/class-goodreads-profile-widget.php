@@ -138,9 +138,9 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 					 *
 					 * @param array $book_data Data for our books.
 					 */
-					$profile_markup = apply_filters( 'profile_markup', '', $book_data );
+					$profile_markup = apply_filters( 'profile_markup', '', $user_data );
 
-					echo ( '' !== $profile_markup ) ? $profile_markup : $this->books( $book_data, $trans_args['user_id'] );
+					echo ( '' !== $profile_markup ) ? $profile_markup : $this->profile( $user_data );
 
 				} else {
 					echo '<p>' . esc_html__( 'Nothing to display yet', 'mb_goodreads' ) . '</p>';
@@ -158,37 +158,29 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	 * @param array $bookdata Array of data for a badge.
 	 * @return string $value Rendered list of brews.
 	 */
-	public function books( $bookdata ) {
-		$mybooks = [];
-		if ( is_object( $bookdata['books'] ) && $bookdata['books']->count() > 0 ) {
-			foreach ( $bookdata['books']->review as $abook ) {
-				$mybooks[ $abook->book->id->__tostring() ] = [
-					'image' => $abook->book->image_url,
-					'link'  => $abook->book->link,
-					'title' => $abook->book->title,
-				];
-			}
+	public function profile( $userdata ) {
+		if ( ! is_object( $userdata['user'] ) || empty( $userdata['user'] ) ) {
+			return '';
 		}
 
-		$books_start = '<div><ul>';
-		$books_end   = '</ul></div>';
-		$book_start  = sprintf(
-			'<div class="%s">',
-			$bookdata['classes']
-		);
-		$book_end    = '</div>';
-		$books       = '';
+		$profile_data = $this->filtered_profile_data( $userdata['user'] );
 
-		foreach ( $mybooks as $mybook ) {
-			$book_obj = new Book( $mybook );
-			$books   .= sprintf(
-				'<li>%s%s%s</li>',
-				$book_start,
-				$book_obj->get_book_markup(),
-				$book_end
-			);
+		$link      = $profile_data['link'];
+		$image_url = $profile_data['image_url'];
+		unset( $profile_data['link'], $profile_data['image_url'] );
+
+		$profile_start = '<div class="' . $userdata['classes'] . '">';
+		$profile_end   = '</div>';
+		$profile_image = $this->profile_photo( $link, $image_url, $profile_data['name'] );
+		$profile       = '<p>';
+
+		foreach ( $profile_data as $data_key => $data_value ) {
+			$data_key = str_replace( '_count', '', $data_key );
+			$profile .= ucfirst( $data_key ) . ': ' . $data_value . '<br/>';
 		}
-		$books .= sprintf(
+		$profile .= '</p>';
+
+		$profile .= sprintf(
 			'<p><small>%s</small></p>',
 			sprintf(
 				/* Translators: placeholder will hold a link to Goodreads.com */
@@ -197,7 +189,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 			)
 		);
 
-		return $books_start . $books . $books_end;
+		return $profile_start . $profile_image . $profile . $profile_end;
 	}
 
 	/**
