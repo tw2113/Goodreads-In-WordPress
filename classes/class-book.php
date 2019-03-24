@@ -43,7 +43,6 @@ class Book {
 	 */
 	public function __construct( $args = [] ) {
 		$this->title = $args['title'];
-		$this->image = $args['image'];
 		$this->link  = $args['link'];
 	}
 
@@ -72,30 +71,8 @@ class Book {
 	 * @return mixed|string
 	 */
 	public function get_book_markup() {
-		$markup  = $this->get_book_img();
-		$markup .= $this->get_book_linked_title();
+		$markup = $this->get_book_linked_title();
 
 		return $markup;
-	}
-
-	/**
-	 * Returns a given user badge image URL.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return mixed
-	 */
-	public function get_book_img() {
-		$tmpl = '<img src="%s" alt="%s" />';
-
-		return sprintf(
-			$tmpl,
-			esc_url( $this->image ),
-			sprintf(
-				/* Translators: placeholder will be the book name. */
-				esc_attr__( 'Cover for %s', 'mb_goodreads' ),
-				$this->title
-			)
-		);
 	}
 }

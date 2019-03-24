@@ -186,7 +186,6 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 		if ( is_object( $bookdata['books'] ) && $bookdata['books']->count() > 0 ) {
 			foreach ( $bookdata['books']->review as $abook ) {
 				$mybooks[ $abook->book->id->__tostring() ] = [
-					'image' => $abook->book->image_url,
 					'link'  => $abook->book->link,
 					'title' => $abook->book->title,
 				];
