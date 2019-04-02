@@ -1,4 +1,4 @@
-=== Goodreads WordPress Widgets ===
+=== Goodreads In WordPress ===
 Contributors: tw2113
 Requires at least: 3.5
 Tested up to: 5.1.1
@@ -7,11 +7,11 @@ Requires PHP: 7.0
 License: WTFPL
 License URI: http://www.wtfpl.net/
 
-Display Goodreads data via widget
+Display Goodreads data in your WordPress install
 
 == Description ==
 
-This plugin creates widgets for Goodreads data.
+This plugin helps display Goodreads data on your WordPress website.
 
 == Installation ==
 
