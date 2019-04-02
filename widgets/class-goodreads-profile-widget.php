@@ -155,7 +155,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $bookdata Array of data for a badge.
+	 * @param array $userdata Array of data for a badge.
 	 * @return string $value Rendered list of brews.
 	 */
 	public function profile( $userdata ) : string {
@@ -271,7 +271,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	protected function filtered_profile_data( $userdata = [] ) : array {
 		$fields = $this->wanted_profile_fields();
 		return array_filter( (array) $userdata, function ( $datum ) use ( $fields ) {
-			return in_array( $datum, $fields );
+			return in_array( $datum, $fields, true );
 		}, ARRAY_FILTER_USE_KEY );
 	}
 
