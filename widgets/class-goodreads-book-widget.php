@@ -26,7 +26,7 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 			'classname'   => '',
 			'description' => esc_html__( 'Display individual book data by ISBN', 'mb_goodreads' ),
 		];
-		parent::__construct( 'goodreads_book', esc_html__( 'Goodreads book data', 'mb_goodreads' ), $widget_ops );
+		parent::__construct( 'goodreads_book', esc_html__( 'Goodreads Book Data', 'mb_goodreads' ), $widget_ops );
 
 		$this->set_settings();
 	}
