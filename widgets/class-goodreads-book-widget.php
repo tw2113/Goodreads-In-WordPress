@@ -179,7 +179,7 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 		$link      = $book_data['url'];
 		$image_url = $book_data['image_url'];
 		$wanted    = $this->wanted_book_fields();
-		$wanted    = array_flip( $wanted ); //Flip so we can unset by associative array key.
+		$wanted    = array_flip( $wanted ); // Flip so we can unset by associative array key.
 		unset( $wanted['url'], $wanted['image_url'], $book_data['url'], $book_data['image_url'] );
 
 		$wanted     = array_flip( $wanted ); // Reflip so we can iterate over values.
