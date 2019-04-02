@@ -242,10 +242,10 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 				set_transient( $trans_args['transient_name'], $thebook, $duration );
 			} else {
 				if ( current_user_can( 'manage_options' ) ) {
-					if ( is_array( $gettheprofile ) && isset( $gettheprofile['error'] ) ) {
-						$message = $gettheprofile['error'];
+					if ( is_array( $getthebook ) && isset( $getthebook['error'] ) ) {
+						$message = $getthebook['error'];
 					} else {
-						$message = $gettheprofile->get_error_message();
+						$message = $getthebook->get_error_message();
 					}
 
 					return new \WP_Error(
