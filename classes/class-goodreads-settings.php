@@ -33,9 +33,9 @@ class Goodreads_Settings {
 	 */
 	public function settings_registration() {
 		register_setting( 'mb_goodreads', 'mb_goodreads_settings', [ $this, 'settings_validate' ] );
-		$settings  = get_option( 'mb_goodreads_settings', '' );
-		$client_id = $settings['client_id'] ?? '';
-		$user_id   = $settings['user_id'] ?? '';
+		$settings = get_option( 'mb_goodreads_settings', '' );
+		$api_key  = $settings['api_key'] ?? '';
+		$user_id  = $settings['user_id'] ?? '';
 
 		add_settings_section(
 			'mb_goodreads_settings',
@@ -44,17 +44,17 @@ class Goodreads_Settings {
 			'mb_goodreads_do_options'
 		);
 		add_settings_field(
-			'goodreads_client_id',
-			'<label for="mb_goodreads_client_id">' . esc_html__( 'API Key', 'mb_goodreads' ) . '</label>',
+			'goodreads_api_key',
+			'<label for="mb_goodreads_api_key">' . esc_html__( 'API Key', 'mb_goodreads' ) . '</label>',
 			[ $this, 'input_fields' ],
 			'mb_goodreads_do_options',
 			'mb_goodreads_settings',
 			[
 				'class' => 'regular-text',
-				'id'    => 'mb_goodreads_client_id',
+				'id'    => 'mb_goodreads_api_key',
 				'type'  => 'text',
-				'name'  => 'mb_goodreads_settings[client_id]',
-				'value' => $client_id,
+				'name'  => 'mb_goodreads_settings[api_key]',
+				'value' => $api_key,
 			]
 		);
 		add_settings_field(
