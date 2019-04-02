@@ -10,6 +10,7 @@ namespace tw2113;
 
 /**
  * Class Goodreads_Profile_API
+ *
  * @since 1.0.0
  */
 class Goodreads_Profile_API extends Goodreads_API {
@@ -39,7 +40,7 @@ class Goodreads_Profile_API extends Goodreads_API {
 		$results = wp_remote_get(
 			add_query_arg(
 				[
-					'key'      => $this->api_key,
+					'key' => $this->api_key,
 				],
 				$url
 			)
