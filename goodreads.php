@@ -44,6 +44,7 @@ namespace tw2113;
 function goodreads_register_widget() {
 	register_widget( 'tw2113\Goodreads_Current_Reading_Widget' );
 	register_widget( 'tw2113\Goodreads_Profile_Widget' );
+	register_widget( 'tw2113\Goodreads_Book_Widget' );
 }
 add_action( 'widgets_init', __NAMESPACE__ . '\goodreads_register_widget' );
 
@@ -62,5 +63,7 @@ function goodreads_widget_init() {
 	require_once 'widgets/class-goodreads-base-widget.php';
 	require_once 'widgets/class-goodreads-current-reading-widget.php';
 	require_once 'widgets/class-goodreads-profile-widget.php';
+	require_once 'widgets/class-goodreads-book-widget.php';
+
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\goodreads_widget_init' );
