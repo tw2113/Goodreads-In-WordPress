@@ -29,7 +29,7 @@ class Goodreads_Profile_API extends Goodreads_API {
 	 *
 	 * @return array
 	 */
-	public function get_profile() {
+	public function get_profile() : array {
 		$url = sprintf( '%s%s%s.xml',
 			$this->base_uri,
 			$this->endpoint,

@@ -53,7 +53,7 @@ class Book {
 	 *
 	 * @return string
 	 */
-	public function get_book_linked_title() {
+	public function get_book_linked_title() : string {
 		$tmpl = '<p><a href="%s">%s</a></p>';
 
 		return sprintf(

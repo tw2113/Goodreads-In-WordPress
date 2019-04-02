@@ -75,7 +75,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	 * @param array $old_instance Old widget instance.
 	 * @return array
 	 */
-	public function update( $new_instance = [], $old_instance = [] ) {
+	public function update( $new_instance = [], $old_instance = [] ) : array {
 		$instance          = $old_instance;
 		$instance['title'] = trim( strip_tags( $new_instance['title'] ) );
 
@@ -158,7 +158,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	 * @param array $bookdata Array of data for a badge.
 	 * @return string $value Rendered list of brews.
 	 */
-	public function profile( $userdata ) {
+	public function profile( $userdata ) : string {
 		if ( ! is_object( $userdata['user'] ) || empty( $userdata['user'] ) ) {
 			return '';
 		}
@@ -268,7 +268,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	 * @param array $userdata Array of user data.
 	 * @return array
 	 */
-	protected function filtered_profile_data( $userdata = [] ) {
+	protected function filtered_profile_data( $userdata = [] ) : array {
 		$fields = $this->wanted_profile_fields();
 		return array_filter( (array) $userdata, function ( $datum ) use ( $fields ) {
 			return in_array( $datum, $fields );
@@ -281,7 +281,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	 * @since 1.0.0
 	 * @return array
 	 */
-	protected function wanted_profile_fields() {
+	protected function wanted_profile_fields() : array {
 		return [
 			'age',
 			'name',
@@ -306,7 +306,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	 * @param string $name  User's first name.
 	 * @return string
 	 */
-	protected function profile_photo( $url = '', $image = '', $name = '' ) {
+	protected function profile_photo( $url = '', $image = '', $name = '' ) : string {
 		return sprintf(
 			'<p><a href="%s"><img src="%s" alt="%s" /></a></p>',
 			$url,

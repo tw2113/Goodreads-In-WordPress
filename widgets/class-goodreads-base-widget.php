@@ -44,7 +44,7 @@ class Goodreads_Base_Widget extends \WP_Widget {
 	 *
 	 * @return bool
 	 */
-	public function maybe_display_errors( $user_id = '', $api_key = '' ) {
+	public function maybe_display_errors( $user_id = '', $api_key = '' ) : bool {
 		$error = false;
 		if ( empty( $user_id ) ) {
 			$error = true;

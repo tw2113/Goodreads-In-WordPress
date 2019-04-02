@@ -91,7 +91,7 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 	 * @param array $old_instance Old widget instance.
 	 * @return array
 	 */
-	public function update( $new_instance = [], $old_instance = [] ) {
+	public function update( $new_instance = [], $old_instance = [] ) : array {
 		$instance          = $old_instance;
 		$instance['title'] = trim( strip_tags( $new_instance['title'] ) );
 		$instance['limit'] = trim( strip_tags( $new_instance['limit'] ) );
@@ -181,7 +181,7 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 	 * @param array $bookdata Array of data for a badge.
 	 * @return string $value Rendered list of brews.
 	 */
-	public function books( $bookdata ) {
+	public function books( $bookdata ) : string {
 		$mybooks = [];
 		if ( is_object( $bookdata['books'] ) && $bookdata['books']->count() > 0 ) {
 			foreach ( $bookdata['books']->review as $abook ) {

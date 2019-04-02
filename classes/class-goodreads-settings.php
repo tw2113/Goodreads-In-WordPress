@@ -132,7 +132,7 @@ class Goodreads_Settings {
 	 * @param array $input Settings to validate.
 	 * @return array
 	 */
-	public function settings_validate( $input = [] ) {
+	public function settings_validate( $input = [] ) : array {
 		return array_map( 'sanitize_text_field', $input );
 	}
 

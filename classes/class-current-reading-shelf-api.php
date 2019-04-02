@@ -56,7 +56,7 @@ class Current_Reading_Shelf_API extends Goodreads_API {
 	 *
 	 * @return array
 	 */
-	public function get_books() {
+	public function get_books() : array {
 		$url = sprintf( '%s%s%s.xml',
 			$this->base_uri,
 			$this->endpoint,
