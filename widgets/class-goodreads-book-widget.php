@@ -306,7 +306,6 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 			'url',
 			'num_pages',
 			'average_rating',
-			'ratings_count',
 		];
 	}
 
