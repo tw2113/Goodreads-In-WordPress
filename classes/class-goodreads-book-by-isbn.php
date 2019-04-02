@@ -37,7 +37,7 @@ class Goodreads_Books_By_ISBN_API extends Goodreads_API {
 	 * @param array $args Array of arguments.
 	 */
 	public function __construct( $args ) {
-		parent::__construct();
+		parent::__construct( $args );
 
 		$this->isbn = $args['isbn'];
 	}
