@@ -17,13 +17,6 @@ namespace tw2113;
 class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 
 	/**
-	 * Saved settings.
-	 *
-	 * @var array|mixed|void
-	 */
-	protected $goodreads_settings = [];
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -35,7 +28,7 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 		];
 		parent::__construct( 'goodreads_current_reading', esc_html__( 'Goodreads Current Reading', 'mb_goodreads' ), $widget_ops );
 
-		$this->goodreads_settings = get_option( 'mb_goodreads_settings', [] );
+		$this->set_settings();
 	}
 
 	/**
