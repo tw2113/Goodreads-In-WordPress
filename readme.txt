@@ -13,6 +13,11 @@ Display Goodreads data in your WordPress install
 
 This plugin helps display Goodreads data on your WordPress website.
 
+=== Current available widgets ===
+1. Current reading list
+1. User profile
+1. Individual book by ISBN
+
 == Installation ==
 
 1. Unzip and upload extracted folder to your wp-content/plugins/ folder OR upload the zip file via the installer in the WP-Admin Plugin screen
