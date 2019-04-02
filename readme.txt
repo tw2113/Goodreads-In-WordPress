@@ -1,7 +1,7 @@
 === Goodreads WordPress Widgets ===
 Contributors: tw2113
 Requires at least: 3.5
-Tested up to: 4.9.8
+Tested up to: 5.1.1
 Stable tag: 1.0.0
 Requires PHP: 7.0
 License: WTFPL
