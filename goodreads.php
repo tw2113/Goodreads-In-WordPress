@@ -57,6 +57,7 @@ function goodreads_widget_init() {
 	require_once 'classes/class-book.php';
 	require_once 'classes/class-current-reading-shelf-api.php';
 	require_once 'classes/class-goodreads-profile-api.php';
+	require_once 'classes/class-goodreads-book-by-isbn.php';
 
 	require_once 'widgets/class-goodreads-base-widget.php';
 	require_once 'widgets/class-goodreads-current-reading-widget.php';
