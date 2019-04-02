@@ -71,8 +71,6 @@ class Book {
 	 * @return mixed|string
 	 */
 	public function get_book_markup() {
-		$markup = $this->get_book_linked_title();
-
-		return $markup;
+		return $this->get_book_linked_title();
 	}
 }
