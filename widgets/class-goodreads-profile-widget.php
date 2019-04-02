@@ -93,8 +93,8 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	public function widget( $args = [], $instance = [] ) {
 
 		$title   = trim( strip_tags( $instance['title'] ) );
-		$user_id = ( ! empty( $this->goodreads_settings['user_id'] ) ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
-		$api_key = ( ! empty( $this->goodreads_settings['client_id'] ) ) ? trim( strip_tags( $this->goodreads_settings['client_id'] ) ) : '';
+		$user_id = ! empty( $this->goodreads_settings['user_id'] ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
+		$api_key = ! empty( $this->goodreads_settings['client_id'] ) ? trim( strip_tags( $this->goodreads_settings['client_id'] ) ) : '';
 
 		echo $args['before_widget'];
 
@@ -254,7 +254,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	 * @since 1.0.0
 	 */
 	public function clearTransient() {
-		$user_id = ( ! empty( $this->goodreads_settings['user_id'] ) ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
+		$user_id = ! empty( $this->goodreads_settings['user_id'] ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
 		if ( ! empty( $user_id ) ) {
 			delete_transient( apply_filters( 'profile_filter', 'goodreads_user_profile_' . $user_id ) );
 		}
