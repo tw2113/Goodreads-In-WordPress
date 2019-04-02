@@ -15,6 +15,22 @@ namespace tw2113;
 class Goodreads_Base_Widget extends \WP_Widget {
 
 	/**
+	 * Saved settings.
+	 *
+	 * @var array|mixed|void
+	 */
+	protected $goodreads_settings = [];
+
+	/**
+	 * Set our settings property.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function set_settings() {
+		$this->goodreads_settings = get_option( 'mb_goodreads_settings', [] );
+	}
+
+	/**
 	 * Render a form input for use in our form input.
 	 *
 	 * @since 1.0.0
