@@ -244,8 +244,12 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 				if ( current_user_can( 'manage_options' ) ) {
 					if ( is_array( $getthebook ) && isset( $getthebook['error'] ) ) {
 						$message = $getthebook['error'];
-					} else {
+					} elseif ( is_wp_error( $getthebook ) ) {
 						$message = $getthebook->get_error_message();
+					} elseif ( 404 === wp_remote_retrieve_response_code( $getthebook ) ) {
+						$message = esc_html__( 'Book not found. Confirm provided ISBN.', 'mb_goodreads' );
+					} else {
+						$message = esc_html__( 'Error in getting book data.', 'mb_goodreads' );
 					}
 
 					return new \WP_Error(
@@ -253,7 +257,7 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 						sprintf(
 							/* Translators: placeholder will hold Goodreads API error message. */
 							esc_html__( 'Admin-only error: %s', 'mb_goodreads' ),
-							esc_html( $message )
+							$message
 						)
 					);
 				}
