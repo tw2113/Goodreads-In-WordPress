@@ -94,7 +94,7 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 
 		$title   = trim( strip_tags( $instance['title'] ) );
 		$user_id = ! empty( $this->goodreads_settings['user_id'] ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
-		$api_key = ! empty( $this->goodreads_settings['client_id'] ) ? trim( strip_tags( $this->goodreads_settings['client_id'] ) ) : '';
+		$api_key = ! empty( $this->goodreads_settings['api_key'] ) ? trim( strip_tags( $this->goodreads_settings['api_key'] ) ) : '';
 
 		echo $args['before_widget'];
 
