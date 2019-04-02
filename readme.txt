@@ -1,6 +1,6 @@
 === Goodreads In WordPress ===
 Contributors: tw2113
-Requires at least: 3.5
+Requires at least: 4.4
 Tested up to: 5.1.1
 Stable tag: 1.0.0
 Requires PHP: 7.0
