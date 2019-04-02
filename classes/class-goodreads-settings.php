@@ -157,7 +157,7 @@ class Goodreads_Settings {
 	 * @since 1.0.0
 	 */
 	public function plugin_options() {
-		include plugin_dir_path( dirname( __FILE__ ) ) . 'tmpl/options.php';
+		include plugin_dir_path( __DIR__ ) . 'tmpl/options.php';
 	}
 }
 $goodreads_settings = new Goodreads_Settings();
