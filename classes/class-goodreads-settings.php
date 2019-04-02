@@ -34,8 +34,8 @@ class Goodreads_Settings {
 	public function settings_registration() {
 		register_setting( 'mb_goodreads', 'mb_goodreads_settings', [ $this, 'settings_validate' ] );
 		$settings  = get_option( 'mb_goodreads_settings', '' );
-		$client_id = ( isset( $settings['client_id'] ) ) ? $settings['client_id'] : '';
-		$user_id   = ( isset( $settings['user_id'] ) ) ? $settings['user_id'] : '';
+		$client_id = $settings['client_id'] ?? '';
+		$user_id   = $settings['user_id'] ?? '';
 
 		add_settings_section(
 			'mb_goodreads_settings',
