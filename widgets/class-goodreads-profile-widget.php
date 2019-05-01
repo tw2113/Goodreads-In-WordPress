@@ -192,18 +192,6 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 	}
 
 	/**
-	 * Clear out our transient as needed, like if the widget limit changes.
-	 *
-	 * @since 1.0.0
-	 */
-	public function clearTransient() {
-		$user_id = ! empty( $this->goodreads_settings['user_id'] ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
-		if ( ! empty( $user_id ) ) {
-			delete_transient( apply_filters( 'profile_filter', 'goodreads_user_profile_' . $user_id ) );
-		}
-	}
-
-	/**
 	 * Filter down our data to only what we want.
 	 *
 	 * @since 1.0.0
