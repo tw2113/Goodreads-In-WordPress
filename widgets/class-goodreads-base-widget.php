@@ -84,7 +84,7 @@ class Goodreads_Base_Widget extends \WP_Widget {
 		];
 
 		if ( current_user_can( 'manage_options' ) ) {
-			echo esc_html( wpautop( $errors[ $error_key ] ) );
+			echo wpautop( $errors[ $error_key ] );
 		}
 
 		return $error;
