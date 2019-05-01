@@ -13,7 +13,7 @@ namespace tw2113;
  *
  * @since 1.0.0
  */
-class Goodreads_Profile_API extends Goodreads_API {
+class Goodreads_Profile_API extends Goodreads_API implements goodreads {
 
 	/**
 	 * Goodreads API endpoint to query.
@@ -30,7 +30,7 @@ class Goodreads_Profile_API extends Goodreads_API {
 	 *
 	 * @return array
 	 */
-	public function get_profile() : array {
+	public function get() : array {
 		$url = sprintf( '%s%s%s.xml',
 			$this->base_uri,
 			$this->endpoint,

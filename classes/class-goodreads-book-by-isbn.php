@@ -13,7 +13,7 @@ namespace tw2113;
  *
  * @since 1.0.0
  */
-class Goodreads_Books_By_ISBN_API extends Goodreads_API {
+class Goodreads_Books_By_ISBN_API extends Goodreads_API implements goodreads {
 
 	/**
 	 * Goodreads API endpoint to query.
@@ -48,7 +48,7 @@ class Goodreads_Books_By_ISBN_API extends Goodreads_API {
 	 * @since 1.0.0
 	 * @return array
 	 */
-	public function get_book(): array {
+	public function get(): array {
 		$url = sprintf( '%s%s%s',
 			$this->base_uri,
 			$this->endpoint,
