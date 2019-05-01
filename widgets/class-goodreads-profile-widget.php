@@ -16,6 +16,8 @@ namespace tw2113;
  */
 class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 
+	use transients;
+
 	/**
 	 * Constructor.
 	 *
@@ -101,10 +103,14 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 			$transient  = apply_filters( 'profile_filter', 'goodreads_user_profile_' . $user_id );
 			$trans_args = [
 				'transient_name' => $transient,
-				'user_id'        => $user_id,
-				'api_key'        => $api_key,
+				'object'         => new Goodreads_Profile_API(
+					[
+						'api_key' => $api_key,
+						'user_id' => $user_id,
+					]
+				)
 			];
-			$user       = $this->getTransient( $trans_args );
+			$user       = $this->get_transient( $trans_args );
 
 			if ( is_wp_error( $user ) ) {
 				echo $user->get_error_message();
@@ -183,62 +189,6 @@ class Goodreads_Profile_Widget extends Goodreads_Base_Widget {
 		);
 
 		return $profile_start . $profile_image . $profile . $profile_end;
-	}
-
-	/**
-	 * Retrieve our Goodreads API data, from a transient first, if available.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $trans_args Array of transient name, username, Goodreads API credentials, and listing limit.
-	 * @return array|\WP_Error Data from Goodreads
-	 */
-	public function getTransient( $trans_args = [] ) {
-		$theprofile = get_transient( $trans_args['transient_name'] );
-		if ( false === $theprofile ) {
-			$myprofile = new Goodreads_Profile_API(
-				[
-					'api_key' => $trans_args['api_key'],
-					'user_id' => $trans_args['user_id'],
-				]
-			);
-
-			$gettheprofile = $myprofile->get_profile();
-
-			/**
-			 * Filters the duration to store our transients.
-			 *
-			 * @since 1.0.0
-			 *
-			 * @param int $value Time in seconds.
-			 */
-			$duration = apply_filters( 'goodreads_transient_duration', 60 * 10 );
-
-			// Save only if we get a good response back.
-			if ( 200 === wp_remote_retrieve_response_code( $gettheprofile ) ) {
-				$theprofile = wp_remote_retrieve_body( $gettheprofile );
-				set_transient( $trans_args['transient_name'], $theprofile, $duration );
-			} else {
-				if ( current_user_can( 'manage_options' ) ) {
-					if ( is_array( $gettheprofile ) && isset( $gettheprofile['error'] ) ) {
-						$message = $gettheprofile['error'];
-					} else {
-						$message = $gettheprofile->get_error_message();
-					}
-
-					return new \WP_Error(
-						'admin_only_error',
-						sprintf(
-							/* Translators: placeholder will hold Goodreads API error message. */
-							esc_html__( 'Admin-only error: %s', 'mb_goodreads' ),
-							esc_html( $message )
-						)
-					);
-				}
-			}
-		}
-
-		return $theprofile;
 	}
 
 	/**

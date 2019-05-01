@@ -16,6 +16,8 @@ namespace tw2113;
  */
 class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 
+	use transients;
+
 	/**
 	 * Constructor.
 	 *
@@ -118,11 +120,15 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 			$transient  = apply_filters( 'book_filter', 'goodreads_book_' . $isbn );
 			$trans_args = [
 				'transient_name' => $transient,
-				'isbn'           => $isbn,
-				'api_key'        => $api_key,
-				'user_id'        => $user_id,
+				'object'         => new Goodreads_Books_By_ISBN_API(
+					[
+						'api_key' => $api_key,
+						'isbn'    => $isbn,
+						'user_id' => $user_id,
+					]
+				),
 			];
-			$book       = $this->getTransient( $trans_args );
+			$book       = $this->get_transient( $trans_args );
 
 			if ( is_wp_error( $book ) ) {
 				echo $book->get_error_message();
@@ -204,67 +210,6 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 		);
 
 		return $book_start . $book_image . $book . $book_end;
-	}
-
-	/**
-	 * Retrieve our Goodreads API data, from a transient first, if available.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $trans_args Array of transient name, username, Goodreads API credentials, and listing limit.
-	 * @return array|\WP_Error Data from Goodreads
-	 */
-	public function getTransient( $trans_args = [] ) {
-		$thebook = get_transient( $trans_args['transient_name'] );
-		if ( false === $thebook ) {
-			$mybook = new Goodreads_Books_By_ISBN_API(
-				[
-					'api_key' => $trans_args['api_key'],
-					'isbn'    => $trans_args['isbn'],
-					'user_id' => $trans_args['user_id'],
-				]
-			);
-
-			$getthebook = $mybook->get_book();
-
-			/**
-			 * Filters the duration to store our transients.
-			 *
-			 * @since 1.0.0
-			 *
-			 * @param int $value Time in seconds.
-			 */
-			$duration = apply_filters( 'goodreads_transient_duration', 60 * 10 );
-
-			// Save only if we get a good response back.
-			if ( 200 === wp_remote_retrieve_response_code( $getthebook ) ) {
-				$thebook = wp_remote_retrieve_body( $getthebook );
-				set_transient( $trans_args['transient_name'], $thebook, $duration );
-			} else {
-				if ( current_user_can( 'manage_options' ) ) {
-					if ( is_array( $getthebook ) && isset( $getthebook['error'] ) ) {
-						$message = $getthebook['error'];
-					} elseif ( is_wp_error( $getthebook ) ) {
-						$message = $getthebook->get_error_message();
-					} elseif ( 404 === wp_remote_retrieve_response_code( $getthebook ) ) {
-						$message = esc_html__( 'Book not found. Confirm provided ISBN.', 'mb_goodreads' );
-					} else {
-						$message = esc_html__( 'Error in getting book data.', 'mb_goodreads' );
-					}
-
-					return new \WP_Error(
-						'admin_only_error',
-						sprintf(
-							/* Translators: placeholder will hold Goodreads API error message. */
-							esc_html__( 'Admin-only error: %s', 'mb_goodreads' ),
-							$message
-						)
-					);
-				}
-			}
-		}
-
-		return $thebook;
 	}
 
 	/**
