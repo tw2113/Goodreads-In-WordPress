@@ -87,7 +87,7 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 		$instance['isbn']  = trim( strip_tags( $new_instance['isbn'] ) );
 
 		if ( $new_instance['isbn'] !== $old_instance['isbn'] ) {
-			$this->clearTransient( $new_instance['isbn'] );
+			delete_transient( apply_filters( 'book_filter', "goodreads_book_{$new_instance['isbn']}" ) );
 		}
 
 		return $instance;
@@ -210,19 +210,6 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 		);
 
 		return $book_start . $book_image . $book . $book_end;
-	}
-
-	/**
-	 * Clear out our transient as needed, like if the widget limit changes.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $isbn ISBN we are changing.
-	 */
-	public function clearTransient( $isbn = '' ) {
-		if ( ! empty( $isbn ) ) {
-			delete_transient( apply_filters( 'book_filter', 'goodreads_book_' . $isbn ) );
-		}
 	}
 
 	/**
