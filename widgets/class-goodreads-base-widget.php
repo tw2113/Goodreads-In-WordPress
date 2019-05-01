@@ -62,18 +62,31 @@ class Goodreads_Base_Widget extends \WP_Widget {
 	 */
 	public function maybe_display_errors( $user_id = '', $api_key = '' ) : bool {
 		$error = false;
+		$error_key = 'user';
+
 		if ( empty( $user_id ) ) {
-			$error = true;
-			if ( current_user_can( 'manage_options' ) ) {
-				echo '<p>' . esc_html__( 'Please provide a user ID', 'mb_goodreads' ) . '</p>';
-			}
+			$error     = true;
+			$error_key = 'user';
 		}
+
 		if ( empty( $api_key ) ) {
-			$error = true;
-			if ( current_user_can( 'manage_options' ) ) {
-				echo '<p>' . esc_html__( 'Please provide an API key provided by Goodreads', 'mb_goodreads' ) . '</p>';
-			}
+			$error     = true;
+			$error_key = 'apikey';
 		}
+
+		if ( ! $error ) {
+			return $error;
+		}
+
+		$errors = [
+			'user'   => esc_html__( 'Please provide a user ID', 'mb_goodreads' ),
+			'apikey' => esc_html__( 'Please provide an API key provided by Goodreads', 'mb_goodreads' ),
+		];
+
+		if ( current_user_can( 'manage_options' ) ) {
+			echo esc_html( wpautop( $errors[ $error_key ] ) );
+		}
+
 		return $error;
 	}
 }
