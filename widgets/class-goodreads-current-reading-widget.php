@@ -16,6 +16,8 @@ namespace tw2113;
  */
 class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 
+	use transients;
+
 	/**
 	 * Constructor.
 	 *
