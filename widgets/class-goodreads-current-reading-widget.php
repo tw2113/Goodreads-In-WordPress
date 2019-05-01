@@ -162,7 +162,7 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 					 */
 					$current_reading_markup = apply_filters( 'current_reading_markup', '', $book_data );
 
-					echo ( '' !== $current_reading_markup ) ? $current_reading_markup : $this->books( $book_data, $trans_args['user_id'] );
+					echo ( '' !== $current_reading_markup ) ? $current_reading_markup : $this->books( $book_data, $user_id );
 
 				} else {
 					echo '<p>' . esc_html__( 'Nothing to display yet', 'mb_goodreads' ) . '</p>';
