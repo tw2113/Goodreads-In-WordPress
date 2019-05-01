@@ -123,11 +123,15 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 			$transient  = apply_filters( 'current_reading_filter', 'goodreads_current_reading_' . $user_id );
 			$trans_args = [
 				'transient_name' => $transient,
-				'user_id'        => $user_id,
-				'api_key'        => $api_key,
-				'limit'          => $limit,
+				'object'         => new Current_Reading_Shelf_API(
+					[
+						'api_key' => $api_key,
+						'user_id' => $user_id,
+						'limit'   => $limit,
+					]
+				),
 			];
-			$books      = $this->getTransient( $trans_args );
+			$books      = $this->get_transient( $trans_args );
 
 			if ( is_wp_error( $books ) ) {
 				echo $books->get_error_message();
@@ -213,63 +217,6 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 		);
 
 		return $books_start . $books . $books_end;
-	}
-
-	/**
-	 * Retrieve our Goodreads API data, from a transient first, if available.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $trans_args Array of transient name, username, Goodreads API credentials, and listing limit.
-	 * @return array|\WP_Error Data from Goodreads
-	 */
-	public function getTransient( $trans_args = [] ) {
-		$thebooks = get_transient( $trans_args['transient_name'] );
-		if ( false === $thebooks ) {
-			$current_reading = new Current_Reading_Shelf_API(
-				[
-					'api_key' => $trans_args['api_key'],
-					'user_id' => $trans_args['user_id'],
-					'limit'   => $trans_args['limit'],
-				]
-			);
-
-			$books = $current_reading->get_books();
-
-			/**
-			 * Filters the duration to store our transients.
-			 *
-			 * @since 1.0.0
-			 *
-			 * @param int $value Time in seconds.
-			 */
-			$duration = apply_filters( 'goodreads_transient_duration', 60 * 10 );
-
-			// Save only if we get a good response back.
-			if ( 200 === wp_remote_retrieve_response_code( $books ) ) {
-				$thebooks = wp_remote_retrieve_body( $books );
-				set_transient( $trans_args['transient_name'], $thebooks, $duration );
-			} else {
-				if ( current_user_can( 'manage_options' ) ) {
-					if ( is_array( $books ) && isset( $books['error'] ) ) {
-						$message = $books['error'];
-					} else {
-						$message = $books->get_error_message();
-					}
-
-					return new \WP_Error(
-						'admin_only_error',
-						sprintf(
-							/* Translators: placeholder will hold Goodreads API error message. */
-							esc_html__( 'Admin-only error: %s', 'mb_goodreads' ),
-							esc_html( $message )
-						)
-					);
-				}
-			}
-		}
-
-		return $thebooks;
 	}
 
 	/**
