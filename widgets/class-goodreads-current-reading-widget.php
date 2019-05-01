@@ -92,7 +92,10 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 		$instance['limit'] = trim( strip_tags( $new_instance['limit'] ) );
 
 		if ( $new_instance['limit'] !== $old_instance['limit'] ) {
-			$this->clearTransient();
+			$user_id = ! empty( $this->goodreads_settings['user_id'] ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
+			if ( ! empty( $user_id ) ) {
+				delete_transient( apply_filters( 'current_reading_filter', 'goodreads_current_reading_' . $user_id ) );
+			}
 		}
 
 		return $instance;
@@ -219,17 +222,5 @@ class Goodreads_Current_Reading_Widget extends Goodreads_Base_Widget {
 		);
 
 		return $books_start . $books . $books_end;
-	}
-
-	/**
-	 * Clear out our transient as needed, like if the widget limit changes.
-	 *
-	 * @since 1.0.0
-	 */
-	public function clearTransient() {
-		$user_id = ! empty( $this->goodreads_settings['user_id'] ) ? trim( strip_tags( $this->goodreads_settings['user_id'] ) ) : '';
-		if ( ! empty( $user_id ) ) {
-			delete_transient( apply_filters( 'current_reading_filter', 'goodreads_current_reading_' . $user_id ) );
-		}
 	}
 }
