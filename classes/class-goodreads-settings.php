@@ -110,18 +110,13 @@ class Goodreads_Settings {
 		$args = wp_parse_args( $args, [
 			'class'       => null,
 			'id'          => null,
-			'type'        => null,
+			'type'        => 'text',
 			'name'        => null,
 			'value'       => '',
 			'description' => null,
 		] );
-		switch ( $args['type'] ) {
-			case 'text':
-				echo '<input type="' . esc_attr( $args['type'] ) . '" class="' . esc_attr( $args['class'] ) . '" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" placeholder="' . esc_attr( $args['description'] ) . '" value="' . esc_attr( $args['value'] ) . '" />';
-				break;
-			default:
-				echo '<input type="text" class="' . esc_attr( $args['class'] ) . '" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" placeholder="' . esc_attr( $args['description'] ) . '" value="' . esc_attr( $args['value'] ) . '" />';
-		}
+
+		echo '<input type="' . esc_attr( $args['type'] ) . '" class="' . esc_attr( $args['class'] ) . '" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" placeholder="' . esc_attr( $args['description'] ) . '" value="' . esc_attr( $args['value'] ) . '" />';
 	}
 
 	/**
