@@ -53,6 +53,9 @@ add_action( 'widgets_init', __NAMESPACE__ . '\goodreads_register_widget' );
  */
 function goodreads_widget_init() {
 
+	require_once 'classes/interface-goodreads-api.php';
+	require_once 'classes/trait-transients.php';
+
 	require_once 'classes/class-goodreads-settings.php';
 	require_once 'classes/class-goodreads-api.php';
 	require_once 'classes/class-book.php';
