@@ -39,12 +39,14 @@ trait transients {
 				$content = wp_remote_retrieve_body( $mycontent );
 				set_transient( $trans_args['transient_name'], $content, $duration );
 			} else {
-				if ( current_user_can( 'manage_options' ) ) {
+				$message = esc_html__( 'Error in getting book data.', 'mb_goodreads' );
+				if ( is_array( $mycontent ) && isset( $mycontent['error'] ) ) {
+					$message = $mycontent['error'];
+				} elseif ( 404 === wp_remote_retrieve_response_code( $mycontent ) ) {
 					$message = $mycontent->get_error_message();
-					if ( is_array( $mycontent ) && isset( $mycontent['error'] ) ) {
-						$message = $mycontent['error'];
-					}
+				}
 
+				if ( current_user_can( 'manage_options' ) ) {
 					return new \WP_Error(
 						'admin_only_error',
 						sprintf(
