@@ -1,4 +1,10 @@
 <?php
+/**
+ * Transient management.
+ *
+ * @since 1.0.0
+ * @package Goodreads WordPress Widget
+ */
 
 namespace tw2113;
 
@@ -9,7 +15,7 @@ trait transients {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $trans_args Array of transient data
+	 * @param array $trans_args Array of transient data.
 	 *
 	 * @return array|\WP_Error Data from Goodreads
 	 */
