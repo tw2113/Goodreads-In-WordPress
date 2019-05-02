@@ -184,33 +184,17 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 
 		$link      = $book_data['url'];
 		$image_url = $book_data['image_url'];
-		$wanted    = $this->wanted_book_fields();
-		$wanted    = array_flip( $wanted ); // Flip so we can unset by associative array key.
-		unset( $wanted['url'], $wanted['image_url'], $book_data['url'], $book_data['image_url'] );
+		$wanted    = $this->construct_wanted_data();
 
-		$wanted     = array_flip( $wanted ); // Reflip so we can iterate over values.
 		$book_start = '<div class="' . $bookdata['classes'] . '">';
 		$book_end   = '</div>';
 		$book_image = $this->book_photo( $link, $image_url, $book_data['title'] );
-		$book       = '<p>';
-
-		foreach ( $wanted as $wanted_key ) {
-			$data_key = str_replace( '_', ' ', $wanted_key );
-			$book    .= ucfirst( $data_key ) . ': ' . $book_data[ $wanted_key ] . '<br/>';
-		}
-		$book .= '</p>';
-
-		$book .= sprintf(
-			'<p><small>%s</small></p>',
-			sprintf(
-				/* Translators: placeholder will hold a link to Goodreads.com */
-				esc_html__( 'All data provided by %s', 'mb_goodreads' ),
-				'<a href="https://www.goodreads.com">Goodreads.com</a>'
-			)
-		);
+		$book       = $this->construct_book( $wanted, $book_data );
 
 		return $book_start . $book_image . $book . $book_end;
 	}
+
+
 
 	/**
 	 * Filter down our data to only what we want.
@@ -243,6 +227,58 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 			'num_pages',
 			'average_rating',
 		];
+	}
+
+	/**
+	 * Reduce down our wanted book data to just desired fields.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array|null
+	 */
+	protected function construct_wanted_data() {
+		$wanted = $this->wanted_book_fields();
+		$wanted = array_flip( $wanted ); // Flip so we can unset by associative array key.
+		unset(
+			$wanted['url'],
+			$wanted['image_url']
+		);
+
+		return array_flip( $wanted ); // Reflip so we can iterate over values.
+	}
+
+	/**
+	 * Construct our book markup and information.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $wanted    Wanted fields.
+	 * @param array $book_data General book information.
+	 * @return string
+	 */
+	protected function construct_book( $wanted, $book_data ) : string {
+		$book        = '<p>%s</p>%s';
+		$book_fields = '';
+
+		foreach ( $wanted as $wanted_key ) {
+			$data_key     = str_replace( '_', ' ', $wanted_key );
+			$book_fields .= ucfirst( $data_key ) . ': ' . $book_data[ $wanted_key ] . '<br/>';
+		}
+
+		$copy = sprintf(
+			'<p><small>%s</small></p>',
+			sprintf(
+				/* Translators: placeholder will hold a link to Goodreads.com */
+				esc_html__( 'All data provided by %s', 'mb_goodreads' ),
+				'<a href="https://www.goodreads.com">Goodreads.com</a>'
+			)
+		);
+
+		return sprintf(
+			$book,
+			$book_fields,
+			$copy
+		);
 	}
 
 	/**
