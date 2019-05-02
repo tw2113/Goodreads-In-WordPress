@@ -206,7 +206,7 @@ class Goodreads_Book_Widget extends Goodreads_Base_Widget {
 	 */
 	protected function filtered_book_data( $bookdata = [] ) : array {
 		$fields = $this->wanted_book_fields();
-		return array_filter( (array) $bookdata, function ( $datum ) use ( $fields ) {
+		return array_filter( (array) $bookdata, function( $datum ) use ( $fields ) {
 			return in_array( $datum, $fields, true );
 		}, ARRAY_FILTER_USE_KEY );
 	}
