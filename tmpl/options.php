@@ -2,7 +2,7 @@
 /**
  * Template file for options page.
  *
- * @package Goodreads Widget
+ * @package Goodreads in WordPress
  */
 
 ?>

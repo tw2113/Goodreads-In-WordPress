@@ -2,7 +2,7 @@
 /**
  * Goodreads Current Reading Widget.
  *
- * @package Goodreads
+ * @package Goodreads in WordPress
  * @subpackage Widgets
  * @since   1.0.0
  */

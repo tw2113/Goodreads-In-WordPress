@@ -2,7 +2,7 @@
 /**
  * Plugin loader.
  *
- * @package Goodreads WordPress Widget
+ * @package Goodreads in WordPress
  * @since 1.0.0
  */
 

@@ -2,7 +2,7 @@
 /**
  * Class for fetching current reading.
  *
- * @package Goodreads WordPress Widgets
+ * @package Goodreads in WordPress
  * @since 1.0.0
  */
 

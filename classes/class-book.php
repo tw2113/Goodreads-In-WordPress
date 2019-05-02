@@ -2,7 +2,7 @@
 /**
  * Book renderer.
  *
- * @package Goodreads Widget
+ * @package Goodreads in WordPress
  */
 
 namespace tw2113;

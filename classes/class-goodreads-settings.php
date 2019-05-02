@@ -2,9 +2,8 @@
 /**
  * Class for setting up options page.
  *
- * @package    Goodreads WordPress Widgets
- * @subpackage Goodreads_settings
- * @since      1.0.0
+ * @package Goodreads in WordPress
+ * @since   1.0.0
  */
 
 namespace tw2113;

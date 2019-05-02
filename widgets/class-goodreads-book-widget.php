@@ -1,8 +1,8 @@
 <?php
 /**
- * Goodreads Current Reading Widget.
+ * Goodreads Book Widget.
  *
- * @package Goodreads
+ * @package Goodreads in WordPress
  * @subpackage Widgets
  * @since   1.0.0
  */

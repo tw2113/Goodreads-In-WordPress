@@ -2,7 +2,7 @@
 /**
  * Goodreads API class.
  *
- * @package goodreads
+ * @package Goodreads in WordPress
  * @since   1.0.0
  */
 

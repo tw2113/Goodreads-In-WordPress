@@ -2,7 +2,7 @@
 /**
  * Class for fetching book statistics.
  *
- * @package Goodreads WordPress Widgets
+ * @package Goodreads in WordPress
  * @since   1.0.0
  */
 

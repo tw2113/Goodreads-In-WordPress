@@ -3,7 +3,7 @@
  * Transient management.
  *
  * @since 1.0.0
- * @package Goodreads WordPress Widget
+ * @package Goodreads in WordPress
  */
 
 namespace tw2113;

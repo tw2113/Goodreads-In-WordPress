@@ -2,7 +2,7 @@
 /**
  * Base widget class that we add our extras to for all current and future widgets.
  *
- * @package Goodreads Widget.
+ * @package Goodreads in WordPress.
  */
 
 namespace tw2113;
